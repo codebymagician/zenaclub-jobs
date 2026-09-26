@@ -1,0 +1,18 @@
+[Unit]
+Description=Zena Jobs Go Service (subscription due-charges scheduler)
+After=network.target zenabackend.service
+
+[Service]
+Type=simple
+User=team_zenaclub_com
+WorkingDirectory=/home/team_zenaclub_com/zenaclub-jobs
+ExecStart=/home/team_zenaclub_com/zenaclub-jobs/zenaclub-jobs
+# Same env file zenabackend.service uses -- CRON_JOB_SECRET already lives
+# there and must match the value the backend was started with. Any other
+# keys in this file are unused by this process and harmless.
+EnvironmentFile=/home/team_zenaclub_com/zenaclub/env/.zenabackend.env
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
